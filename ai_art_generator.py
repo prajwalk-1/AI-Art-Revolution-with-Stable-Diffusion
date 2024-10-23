@@ -1,10 +1,9 @@
-# Import necessary libraries
 import streamlit as st
-from diffusers import DiffusionPipeline  # Import the DiffusionPipeline class from the diffusers library
-import torch  # Import the torch library for tensor operations
-import matplotlib.pyplot as plt  # Import for image visualization
-from PIL import Image  # Import to display image in Streamlit
-import io  # Import for image buffer management
+from diffusers import DiffusionPipeline  
+import torch  
+import matplotlib.pyplot as plt  
+from PIL import Image  
+import io  
 
 # Set Streamlit title
 st.title("Stable Diffusion Image Generator")
@@ -23,12 +22,12 @@ generate = st.sidebar.button("Generate Image")
 def load_pipeline():
     # Load the pre-trained model using the 'stable-diffusion-xl-base-1.0' pipeline
     pipe = DiffusionPipeline.from_pretrained(
-        "stabilityai/stable-diffusion-xl-base-1.0",  # Specify the model checkpoint to load for the base pipeline
-        torch_dtype=torch.float16,  # Set the data type for tensors to float16 for optimized performance
-        use_safetensors=True,  # Enable safe tensors for numerical stability
-        variant="fp16"  # Use the FP16 variant to optimize performance
+        "stabilityai/stable-diffusion-xl-base-1.0", 
+        torch_dtype=torch.float16,  
+        use_safetensors=True,  
+        variant="fp16"  
     )
-    pipe.to("cuda")  # Move the pipeline to GPU for faster processing
+    pipe.to("cuda")  
     return pipe
 
 pipe = load_pipeline()
@@ -36,13 +35,10 @@ pipe = load_pipeline()
 # Function to generate and display image
 def generate_image(prompt):
     try:
-        # Clear CUDA memory cache
         torch.cuda.empty_cache()
         
-        # Generate image from the pipeline with reduced resolution
-        images = pipe(prompt=prompt, height=256, width=256).images[0]
+        images = pipe(prompt=prompt, height=512, width=512).images[0]
         
-        # Convert to PIL Image for display in Streamlit
         buffer = io.BytesIO()
         images.save(buffer, format="PNG")
         buffer.seek(0)
