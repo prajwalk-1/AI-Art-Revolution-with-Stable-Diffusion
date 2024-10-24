@@ -1,7 +1,7 @@
 import streamlit as st
-from diffusers import DiffusionPipeline  
+import matplotlib.pyplot as plt 
 import torch  
-import matplotlib.pyplot as plt  
+from diffusers import DiffusionPipeline  
 from PIL import Image  
 import io  
 
@@ -13,7 +13,6 @@ st.sidebar.header("Input Settings")
 
 # Text input for the prompt
 prompt = st.sidebar.text_input("Prompt", "A vibrant sunset over the city skyline with silhouetted buildings.")
-
 # Button to generate image
 generate = st.sidebar.button("Generate Image")
 
