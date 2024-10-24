@@ -79,4 +79,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [Stable Diffusion](https://stability.ai/stable-diffusion)
 - [Streamlit](https://streamlit.io/)
 - [Hugging Face Diffusers](https://huggingface.co/docs/diffusers/index)
-```
