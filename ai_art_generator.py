@@ -13,7 +13,7 @@ st.sidebar.header("Input Settings")
 
 # Text input for the prompt
 prompt = st.sidebar.text_input("Prompt", "A vibrant sunset over the city skyline with silhouetted buildings.")
-# Button to generate image
+# generate image
 generate = st.sidebar.button("Generate Image")
 
 # Initialize the base pipeline outside the button to avoid reloading the model every time
@@ -28,14 +28,13 @@ def load_pipeline():
     )
     pipe.to("cuda")  
     return pipe
-
+    
 pipe = load_pipeline()
 
 # Function to generate and display image
 def generate_image(prompt):
     try:
         torch.cuda.empty_cache()
-        
         images = pipe(prompt=prompt, height=512, width=512).images[0]
         
         buffer = io.BytesIO()
